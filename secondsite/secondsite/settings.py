@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'pyrate.apps.PyrateConfig'
     'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
