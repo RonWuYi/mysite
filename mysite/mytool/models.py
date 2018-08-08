@@ -49,7 +49,7 @@ class Password(models.Model):
         else:
             super().save(*args, **kwargs)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=Category.pwd_category)
     name = models.CharField(max_length=200)
     user_id = models.CharField(max_length=200, blank=True)
     text = models.CharField(max_length=200)
