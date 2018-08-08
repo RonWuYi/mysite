@@ -3,17 +3,17 @@ from datetime import datetime
 
 
 class Category(models.Model):
-    LIFE = 'life'
-    INSURANCE = 'IN'
-    APPLEID = 'APPLE'
-    STAFF = 'STA'
-    GAME = 'GA'
-    WORK = 'WO'
-    BANK = 'BA'
-    PHONE = 'PH'
+    LIFE = 'LIFE'
+    INSURANCE = 'INSURANCE'
+    APPLEID = 'APPLEID'
+    STAFF = 'STAFF'
+    GAME = 'GAME'
+    WORK = 'WORK'
+    BANK = 'BANK'
+    PHONE = 'PHONE'
     GIT = 'GIT'
-    MACHINE = 'MA'
-    OTHERS = 'OT'
+    MACHINE = 'MACHINE'
+    OTHERS = 'OTHERS'
     PWD_CAT = (
         (LIFE, 'life'),
         (INSURANCE, 'insurance'),
@@ -49,7 +49,7 @@ class Password(models.Model):
         else:
             super().save(*args, **kwargs)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, choices=Category.PWD_CAT, default=Category.PWD_CAT[0])
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=Category.pwd_category)
     name = models.CharField(max_length=200)
     user_id = models.CharField(max_length=200, blank=True)
     text = models.CharField(max_length=200)
