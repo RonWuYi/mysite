@@ -1,6 +1,0 @@
-<h1>{{ category.pwd_category }}</h1>
-<ul>
-{% for password in category.password_set.all %}
-    <li><a href="/category/{{ category.id }}/">{{ password.name }}{{ password.user_id }}{{ password.text }}</a></li>
-{% endfor %}
-</ul>
