@@ -1,7 +1,7 @@
 altgraph==0.16.1
 attrs==17.4.0
 click==6.7
-Django==2.1
+Django==2.1.7
 Flask==1.0.2
 future==0.17.1
 itsdangerous==0.24
