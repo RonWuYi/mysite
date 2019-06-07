@@ -10,3 +10,7 @@ def index(request):
         return HttpResponse("this is POST request")
     else:
         return HttpResponse("we do not know which request it is")
+
+
+def root(request):
+    return HttpResponse("root page")
