@@ -1,4 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from .forms import UploadFileForm
+
+from .forms import handle_uploaded_file
 
 
 def index(request):
@@ -14,3 +18,15 @@ def index(request):
 
 def root(request):
     return HttpResponse("root page")
+
+
+def upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST,
+                              request.Files)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponse('success')
+    else:
+        form = UploadFileForm()
+    return render(request, 'polls/upload.html', {'form': form})
