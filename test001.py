@@ -1,3 +1,9 @@
-import pathlib
+import numpy as np
 
-print(pathlib.Path.cwd())
+a = np.arange(15).reshape(3, 5)
+
+
+print(a)
+
+print(a.shape);
+print(a.ndim);
