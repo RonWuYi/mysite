@@ -1,10 +1,11 @@
 import requests
 
-ip  = '172.16.98.51'
-url = 'http://{}/PIsys/Sector/Sector.asmx'.format(ip)
+ip51  = '172.16.98.51'
+ip149  = '172.16.66.149'
+url = 'http://{}/PIsys/Sector/Sector.asmx'.format(ip149)
 
 operatorTag = '000'
-serialNumber = '2060713988'
+serialNumber = '2129133568'
 nationality = 'USA'
 regionTag = 'zz'
 productTagList1 = '1'
