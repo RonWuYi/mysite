@@ -6,4 +6,5 @@ usernameadmin = 'kmssys\\administrator'
 password = 'Bdclab123'
 
 odbcdriver = 'C:\Windows\SysWOW64\odbcad32.exe'
+UP_FOLDER = 'C:\\Work\\test project\\github\\mysite\\up'
 
