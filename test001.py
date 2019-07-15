@@ -1,8 +1,11 @@
 import requests
+import pyodbc
+
+from util.constant import *
 
 ip51  = '172.16.98.51'
 ip149  = '172.16.66.149'
-url = 'http://{}/PIsys/Sector/Sector.asmx'.format(ip149)
+url = 'http://{}/PIsys/Sector/Sector.asmx'.format(ip51)
 
 operatorTag = '000'
 serialNumber = '2129133568'
@@ -32,3 +35,5 @@ body = """<?xml version="1.0" encoding="utf-8"?>
 response = requests.post(url, data=body, headers=headers)
 print(response)
 print(response.reason)
+
+
