@@ -1,9 +1,14 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
 
+class UserSerializer(serializers.ModelSerializer):
+    pass
+
 class SnippetSerializer(serializers.Serializer):
     class Meta:
+
         model = Snippet
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
     id = serializers.IntegerField(read_only=True)
