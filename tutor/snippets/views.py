@@ -156,16 +156,30 @@
 #           use mixins and trim down it
 #
 #############################################################################################
-from rest_framework import generics
+from rest_framework import generics, permissions
 from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer
+from snippets.serializers import SnippetSerializer, UserSerializer
+from django.contrib.auth.models import User
+
+
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class SnippetList(generics.ListCreateAPIView):
     
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
     # def get(self, request, *args, **kwargs):
     #     return self.list(request, *args, **kwargs)
 
