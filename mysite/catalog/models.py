@@ -23,6 +23,9 @@ class Genre(models.Model):
         """String for representing the Model object."""
         return self.name
 
+    # def display_genre(self):
+    #     return ', '.join(Genre.name for Genre in self.genre.all()[:3])
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)

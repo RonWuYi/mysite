@@ -2,7 +2,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-
-    # path('', include('catalog.urls')),
-
+    path('catalog/', include('catalog.urls')),
+    path('', views.index, name='index'),
 ]

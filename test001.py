@@ -5,7 +5,7 @@ from util.constant import *
 
 ip51  = '172.16.98.51'
 ip149  = '172.16.66.149'
-url = 'http://{}/PIsys/Sector/Sector.asmx'.format(ip51)
+url = 'http://{}/PIsys/Sector/Sector.asmx'
 
 operatorTag = '000'
 serialNumber = '2129133568'
@@ -30,9 +30,9 @@ body = """<?xml version="1.0" encoding="utf-8"?>
       </productTagList>
     </createSector>
   </soap12:Body>
-</soap12:Envelope>""".format(operatorTag, serialNumber, nationality, regionTag, productTagList1)
-
-response = requests.post(url, data=body, headers=headers)
+</soap12:Envelope>"""
+response = requests.post(url.format(ip149), data=body.format(operatorTag, serialNumber, nationality, regionTag, productTagList1)
+, headers=headers)
 print(response)
 print(response.reason)
 
