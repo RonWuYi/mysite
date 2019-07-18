@@ -6,15 +6,14 @@ from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 class UserSerializer(serializers.ModelSerializer):
     Snippet = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
 
-
     class Meta:
         model = User
         fields = ['id', 'username', 'snippets']
 
 
 class SnippetSerializer(serializers.Serializer):
-    class Meta:
 
+    class Meta:
         model = Snippet
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style', 'owner']
     id = serializers.IntegerField(read_only=True)
