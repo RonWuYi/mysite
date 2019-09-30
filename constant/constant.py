@@ -1,7 +1,8 @@
+import os
 import datetime
 import string
 # from datetime import datetime
-
+from pathlib import Path
 # print(datetime.now())
 # print('{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
 
@@ -45,3 +46,10 @@ def time_string():
         else:
             temp.append(time_string[i])
     return ('').join(temp)
+
+
+def cur_folder() :
+    return os.getcwd()
+
+def cur_path():
+    return str(Path.cwd())
