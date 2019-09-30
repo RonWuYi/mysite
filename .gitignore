@@ -101,3 +101,9 @@ ENV/
 .mypy_cache/
 .idea/
 .vscode/
+
+# media
+*.avi
+*.png
+*.jpg
+*.jpeg
