@@ -1,4 +1,5 @@
 import os
+import cv2
 import datetime
 import string
 # from datetime import datetime
@@ -37,15 +38,15 @@ for i in range(len(time_string)-1):
 #     print(i)
 # print(type(datetime.now()))
 def time_string():
-    time_string = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
-
-    temp = []
-    for i in range(len(time_string)-1):
-        if time_string[i] not in string.digits:
-            temp.append('_')
-        else:
-            temp.append(time_string[i])
-    return ('').join(temp)
+    # time_string = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+    cur_string = datetime.datetime.now().isoformat(timespec='seconds')
+    # temp = []
+    # for i in range(len(time_string)-1):
+    #     if time_string[i] == ':':
+    #         temp.append('_')
+    #     else:
+    #         temp.append(time_string[i])
+    return cur_string.replace(':', '')
 
 
 def cur_folder() :
@@ -53,3 +54,15 @@ def cur_folder() :
 
 def cur_path():
     return str(Path.cwd())
+
+cap = cv2.VideoCapture(0)
+
+# define the codec and create VideoWriter object 
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640, 480))
+outtest = os.path.join(os.getcwd(),"media",'output{}.avi'.format(time_string()))
+
+if __name__ == '__main__':
+    while True:
+        print(datetime.datetime.now())
+        print(time_string())
