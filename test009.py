@@ -29,7 +29,14 @@ while True:
 
     if save_count >= 5:
         my_save.ReleaseObj()
+        # change it
         break
+
+media_folder = 'C:\\Work\\test project\\github\\mysite\\media'
+for i in os.listdir():
+    if i.endswith('avi'):
+        print(i)
+
     
 
 

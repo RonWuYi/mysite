@@ -6,8 +6,11 @@ import string
 from pathlib import Path
 # print(datetime.now())
 # print('{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
+key_path = 'C:\\Work\\test project\\github\\mysite\\private\\bugs-14332e1a3777.json'
 
 time_string = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+
+storage_name = 'bugs-246912.appspot.com'
 
 temp = []
 
@@ -19,24 +22,6 @@ for i in range(len(time_string)-1):
         temp.append(time_string[i])
         # temp[i] = time_string[i]
 
-# for i in time_string:
-#     if i != string.digits:
-#         temp[time_string.index] = '_'
-#     else:
-#         temp[i] =
-
-# print(temp)
-# print(('').join(temp))
-
-
-# temp = time_string.replace('-', '_')
-# time_string.replace(' ', '_')
-# time_string.replace(':', '_')
-
-# print(temp)
-# for i in datetime.now():
-#     print(i)
-# print(type(datetime.now()))
 def time_string():
     # time_string = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
     cur_string = datetime.datetime.now().isoformat(timespec='seconds')
@@ -63,6 +48,19 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 outtest = os.path.join(os.getcwd(),"media",'output{}.avi'.format(time_string()))
 
 if __name__ == '__main__':
-    while True:
-        print(datetime.datetime.now())
-        print(time_string())
+    # Imports the Google Cloud client library
+    from google.cloud import storage
+
+    # Instantiates a client
+    storage_client = storage.Client()
+
+    # The name for the new bucket
+    bucket_name = 'my-new-bucket'
+
+    # Creates the new bucket
+    bucket = storage_client.create_bucket(bucket_name)
+
+    print('Bucket {} created.'.format(bucket.name))
+    # while True:
+    #     print(datetime.datetime.now())
+    #     print(time_string())

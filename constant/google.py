@@ -1,4 +1,7 @@
+import os
+
 from google.cloud import storage
+from constant import constant
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
@@ -23,3 +26,6 @@ def download_blob(bucket_name, source_blob_name, destination_file_name):
     print('Blob {} downloaded to {}.'.format(
         source_blob_name,
         destination_file_name))
+    
+def set_env():
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = constant.key_path
