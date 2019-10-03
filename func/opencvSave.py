@@ -17,11 +17,16 @@ class Cv2Video:
     def Create(self):
         while(self.cap.isOpened()):
             ret, frame = self.cap.read()
+            # cv2.imshow('frame', frame)
             end = time.time()
             time_diff = end - self.start_time
             if ret == True and (time_diff) <= 5.0:
                 frame = cv2.flip(frame, 0)
+                # cv2.imshow('frame', frame)
                 self.out.write(frame)
+                # cv2.imshow('frame', frame)
+            else:
+                break
     
     def Upload(self, folder):
         for i in os.listdir(os.path.join(folder, 'media')):

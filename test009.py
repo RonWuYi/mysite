@@ -3,7 +3,7 @@ import cv2
 import time
 
 from func import opencvSave
-from constant import constant
+from constant import constant, google
 
 # cap = cv2.VideoCapture(0)
 
@@ -32,10 +32,12 @@ while True:
         # change it
         break
 
+google.set_env()
 media_folder = 'C:\\Work\\test project\\github\\mysite\\media'
-for i in os.listdir():
+for i in os.listdir(media_folder):
     if i.endswith('avi'):
         print(i)
+        google.upload_blob(constant.storage_name, os.path.join(media_folder, i), 'test{}'.format(i))
 
     
 
