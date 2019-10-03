@@ -19,12 +19,13 @@ t2.start()
 t2.join()
 t1.join()
 
-countdown = 100
+countdown = 25
 while keyFlag:
     countdown -= 1
     if countdown == 0:
         keyFlag = False
-        # t1.s
+        my_save.Createterminate()
+        my_save.Uploadterminate()
 
 
 

@@ -18,11 +18,11 @@ class Cv2Video:
         self._Createrunning = True
         self._Uploadrunning = True
     
-    def terminateCreat(self):
+    def Createterminate(self):
         self._Createrunning = False
         # self._running = False
 
-    def terminateCreat(self):
+    def Uploadterminate(self):
         self._Uploadrunning = False
 
     def Create(self):
