@@ -8,29 +8,22 @@ from pathlib import Path
 # print('{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
 key_path = 'C:\\Work\\test project\\github\\mysite\\private\\bugs-14332e1a3777.json'
 
-time_string = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
+# time_string = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
 
 storage_name = 'bugs-246912.appspot.com'
 
-temp = []
+# temp = []
 
 
-for i in range(len(time_string)-1):
-    if time_string[i] not in string.digits:
-        temp.append('_')
-    else:
-        temp.append(time_string[i])
+# for i in range(len(time_string)-1):
+#     if time_string[i] not in string.digits:
+#         temp.append('_')
+#     else:
+#         temp.append(time_string[i])
         # temp[i] = time_string[i]
 
 def time_string():
-    # time_string = '{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
     cur_string = datetime.datetime.now().isoformat(timespec='seconds')
-    # temp = []
-    # for i in range(len(time_string)-1):
-    #     if time_string[i] == ':':
-    #         temp.append('_')
-    #     else:
-    #         temp.append(time_string[i])
     return cur_string.replace(':', '')
 
 

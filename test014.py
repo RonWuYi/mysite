@@ -1,18 +1,30 @@
+import os
+import cv2
 import time
 
+from pathlib import Path
+from func import opencvSave
 from threading import Thread
+from constant import constant, google
 
-class CountdownTask:
-    def __init__(self):
-        self._running = True
+google.set_env()
+keyFlag = True
 
-    def terminate(self):
-        self._running = False
+my_save = opencvSave.Cv2Video(constant.cap, constant.fourcc)
 
-    def run(self, n):
-        while self._running and n > 0:
-            print('T-minus', n)
-            n -= 1
-            time.sleep(5)
-    
-c = CountdownTask()
+t1 = Thread(target=my_save.Create, args=())
+t2 = Thread(target=my_save.Upload, args=(os.path.join(str(Path.cwd()), 'media'), ))
+t1.start()
+t2.start()
+t2.join()
+t1.join()
+
+countdown = 100
+while keyFlag:
+    countdown -= 1
+    if countdown == 0:
+        keyFlag = False
+        # t1.s
+
+
+
