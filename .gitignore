@@ -107,3 +107,6 @@ ENV/
 *.png
 *.jpg
 *.jpeg
+
+# other
+private/
