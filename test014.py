@@ -14,10 +14,13 @@ my_save = opencvSave.Cv2Video(constant.cap, constant.fourcc)
 
 t1 = Thread(target=my_save.Create, args=())
 t2 = Thread(target=my_save.Upload, args=(os.path.join(str(Path.cwd()), 'media'), ))
+
 t1.start()
 t2.start()
+
 t1.join()
 t2.join()
+
 while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         my_save.Createterminate()
