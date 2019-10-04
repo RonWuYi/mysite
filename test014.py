@@ -16,16 +16,13 @@ t1 = Thread(target=my_save.Create, args=())
 t2 = Thread(target=my_save.Upload, args=(os.path.join(str(Path.cwd()), 'media'), ))
 t1.start()
 t2.start()
-t2.join()
 t1.join()
-
-countdown = 25
-while keyFlag:
-    countdown -= 1
-    if countdown == 0:
-        keyFlag = False
+t2.join()
+while True:
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         my_save.Createterminate()
         my_save.Uploadterminate()
+        break
 
 
 
