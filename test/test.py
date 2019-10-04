@@ -1,19 +1,10 @@
-from django.conf import settings
-from django.http import HttpResponse
-from django.conf.urls import url
-setting = {
-    'DEBUG':True,
-    'ROOT_URLCONF':__name__
-}
+import subprocess
 
-settings.configure(**setting)
+def run_code(code):
+    output = subprocess.check_output(['python', '-c', code],universal_newlines=True)
+    return output
 
-def home(request):
-    return HttpResponse('Hello world!')
-
-urlpatterns = [url('^$',home,name='home')]
-
-if __name__ == '__main__':
-    import sys
-    from django.core.management import execute_from_command_line
-    execute_from_command_line(sys.argv)
+code = """print('Test code')"""
+code1 = """import os \r\nprint(os.getcwd())"""
+code1 = """import os \r\nos.system('ssh -T git@github.com')"""
+print(run_code(code1))
