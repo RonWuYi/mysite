@@ -1,9 +1,52 @@
-from flask import Flask, render_template
+import os
+import sys
+import click
+import flask
+
+from sqlite3 import IntegrityError
+from flask import Flask, render_template, request, url_for, flash, redirect
+from flask_sqlalchemy import SQLAlchemy
+
+WIN = sys.platform.startswith('win')
+
+if WIN:
+    prefix = 'sqlite:///'
+else:
+    prefix = 'sqlite:////'
+
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'dev'
+db = SQLAlchemy(app)
 
 
-name = 'test'
-movies = [
+class User(db.Model):  # 表名将会是 user（自动生成，小写处理）
+    id = db.Column(db.Integer, primary_key=True)  # 主键
+    name = db.Column(db.String(20), unique=True)  # 名字
+
+class Movie(db.Model):  # 表名将会是 movie
+    id = db.Column(db.Integer, primary_key=True)  # 主键
+    title = db.Column(db.String(60), unique=True)  # 电影标题
+    year = db.Column(db.String(4))  # 电影年份
+
+@app.cli.command()
+@click.option('--drop', is_flag=True, help='Create db after drop.')
+def initdb(drop):
+    """
+    Initialize the database.
+    """
+    if drop:
+        db.drop_all()
+    db.create_all()
+    click.echo('Initialized databases.')
+
+@app.cli.command()
+def forge():
+    """Generate fake data."""
+    db.create_all()
+    name = 'test'
+    movies = [
     {'title': 'My Neighbor Totoro', 'year': '1988'},
     {'title': 'Dead Poets Society', 'year': '1989'},
     {'title': 'A Perfect World', 'year': '1993'},
@@ -14,12 +57,53 @@ movies = [
     {'title': 'Devils on the Doorstep', 'year': '1999'},
     {'title': 'WALL-E', 'year': '2008'},
     {'title': 'The Pork of Music', 'year': '2012'},
-]
+]    
 
-@app.route('/hello')
-@app.route('/home')
-@app.route('/')
-def home():
-    # return 'welcome'
-    # return '<h1>Hello Totoro!</h1><img src="http://helloflask.com/totoro.gif">'
-    return render_template('index.html', name=name, movies=movies)
+    user = User(name=name)
+    db.session.add(user)
+    for m in movies:
+        movie =Movie(title=m['title'], year=m['year'])
+        db.session.add(movie)
+        
+    db.session.commit()
+    click.echo('Done.')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    user = User.query.first()
+    return render_template('404.html'), 404
+    
+@app.context_processor
+def inject_user():
+    user = User.query.first()
+    return dict(user=user)
+    
+# @app.route('/hello', methods=['GET', 'POST'])
+# @app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        year = request.form.get('year')
+        
+        if not title or not year or len(year) > 4 or len(title) > 50:
+            flash('Invalid input.')
+            return redirect(url_for('index'))
+        
+        movie = Movie(title=title, year=year)
+        db.session.add(movie)
+        try:
+            db.session.commit()
+            flash('Item created.')
+            return redirect(url_for('index'))
+        except (IntegrityError) as err:            # flash(e)
+            db.session.rollback()
+            flask.abort(409, err.orig)
+            # return redirect(url_for('index'))
+        except Exception as e:
+            # flash(e)
+            db.session.rollback()
+            flask.abort(500, e)
+        
+    movies = Movie.query.all()
+    return render_template('index.html', movies=movies)
