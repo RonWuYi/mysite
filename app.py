@@ -1,7 +1,6 @@
 import os
 import sys
 
-# from sqlite3 import IntegrityError
 from flask import Flask, render_template, redirect, url_for, request
 from flask_login import login_required, current_user, login_user, logout_user
 
@@ -34,6 +33,10 @@ def hello():
 @app.route('/hello1')
 def hello1():
     return 'hello1 page'
+
+# Todo:
+# ** import info
+# ! decr
 
 @app.route('/')
 def index():

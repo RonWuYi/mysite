@@ -1,17 +1,24 @@
 import os
+import sys
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# db = SQLAlchemy()
+WIN = sys.platform.startswith('win')
 
+if WIN:
+    prefix = 'sqlite:///'
+else:
+    prefix = 'sqlite:////'
+    
+    
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        SQLALCHEMY_DATABASE_URI='sqlite:////tmp/test1.db',
+        SQLALCHEMY_DATABASE_URI=prefix + os.path.join(app.root_path, 'app.db'),
     )
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test1.db'
     # db = SQLAlchemy(app)
 
     if test_config is None:
