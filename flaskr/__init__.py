@@ -16,7 +16,7 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        SQLALCHEMY_DATABASE_URI='sqlite:////tmp/test1.db',
+        # SQLALCHEMY_DATABASE_URI='sqlite:////tmp/test1.db',
         SQLALCHEMY_DATABASE_URI=prefix + os.path.join(app.root_path, 'app.db'),
     )
     # db = SQLAlchemy(app)
@@ -31,9 +31,17 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    @app.route('/')    
+    @app.route('/index')
+    def index():
+        return 'index page'
+
     @app.route('/hello')
     def hello():
         return 'hello'
+    
+    from . import auth
+    app.register_blueprint(auth.bp)
     # db = create_db()
     # db.init_app(app)
     return app
