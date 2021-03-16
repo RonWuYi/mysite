@@ -1,8 +1,7 @@
-from werkzeug.security import generate_password_hash, check_password_hash
-my_string = b'\x80\x03c__main__\nProcessData\nq\x00)\x81q\x01}q\x02X\x04\x00\x00\x00dataq\x03X\x0b\x00\x00\x00ABCDEFGHIJKq\x04sb.'
-hash = generate_password_hash(my_string)
-
-
-print(hash)
-
-print(check_password_hash(hash, my_string))
+my_list = [1, 2, 3, 4, 5]
+for i in range(len(my_list)):
+    for j in range(len(my_list[i+1:])):
+        # print(f'i is {my_list[i]}')
+        print(f'j is {my_list[i+1:][j]}')
+# print(len(my_list))
+# print(ord('9'))
